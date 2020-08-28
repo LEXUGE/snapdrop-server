@@ -4,6 +4,11 @@ process.on('SIGINT', () => {
   process.exit(0)
 })
 
+process.on('SIGTERM', () => {
+  console.info("SIGTERM Received, exiting...")
+  process.exit(0)
+})
+
 const parser = require('ua-parser-js');
 const { uniqueNamesGenerator, animals, colors } = require('unique-names-generator');
 
