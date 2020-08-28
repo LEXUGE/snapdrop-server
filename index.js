@@ -1,3 +1,9 @@
+var process = require('process')
+process.on('SIGINT', () => {
+  console.info("SIGINT Received, exiting...")
+  process.exit(0)
+})
+
 const parser = require('ua-parser-js');
 const { uniqueNamesGenerator, animals, colors } = require('unique-names-generator');
 
@@ -30,13 +36,13 @@ class SnapdropServer {
     }
 
     _onMessage(sender, message) {
-        // Try to parse message 
+        // Try to parse message
         try {
             message = JSON.parse(message);
         } catch (e) {
             return; // TODO: handle malformed JSON
         }
-        
+
         switch (message.type) {
             case 'disconnect':
                 this._leaveRoom(sender);
@@ -154,7 +160,7 @@ class Peer {
         this._setPeerId(request)
         // is WebRTC supported ?
         this.rtcSupported = request.url.indexOf('webrtc') > -1;
-        // set name 
+        // set name
         this._setName(request);
         // for keepalive
         this.timerId = 0;
